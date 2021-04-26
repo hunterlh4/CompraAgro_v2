@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/navigation_market">
+
+    <fragment
+        android:id="@+id/navigation_market"
+        android:name="com.example.compraagro.fragments.MarketFragment"
+        android:label="Mercado"
+        tools:layout="@layout/fragment_market"/>
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.example.compraagro.fragments.MapFragment"
+        android:label="Mapa"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.example.compraagro.fragments.HistoryFragment"
+        android:label="Historial"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.compraagro.fragments.ProfileFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_profile" >
+    </fragment>
+
+</navigation>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435599380701",
+    "project_id": "compraagro-a6c29",
+    "storage_bucket": "compraagro-a6c29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435599380701:android:2a4a8b0aa1532d2bb64b34",
+        "android_client_info": {
+          "package_name": "com.example.compraagro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435599380701-0efmmnp67pac0nok7uj8r2p2863oif9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOniNyIa805JhRRDx2isq7iagZ3P9kpOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435599380701-0efmmnp67pac0nok7uj8r2p2863oif9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
