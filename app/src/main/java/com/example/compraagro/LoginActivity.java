@@ -21,11 +21,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
 
+    FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        auth = FirebaseAuth.getInstance();
         TextInputLayout etEmail=findViewById(R.id.etEmail);
         TextInputLayout etPassword=findViewById(R.id.etPassword);
 
@@ -48,13 +51,20 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
 
 
-                    if(txt_email.equals("compraagro@gmail.com") && txt_password.equals("123456") ){
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Error al autentificar", Toast.LENGTH_SHORT).show();
-                    }
+                    auth.signInWithEmailAndPassword(txt_email, txt_password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()){
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Error al autentificar", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
 
                 }

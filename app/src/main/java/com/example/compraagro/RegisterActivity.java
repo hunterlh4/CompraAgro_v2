@@ -27,11 +27,17 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+    FirebaseAuth auth;
+    DatabaseReference reference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
+        auth = FirebaseAuth.getInstance();
 
         MaterialEditText username= findViewById(R.id.username);
         MaterialEditText email= findViewById(R.id.email);
@@ -44,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                register(email.getText().toString(),password.getText().toString());
                 //Toast.makeText(com.example.compraagro.RegisterActivity.this, email.getText().toString()+password.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -52,5 +59,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    private void register(String email, String password){
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+
+                            Intent intent = new Intent(com.example.compraagro.RegisterActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            Toast.makeText(com.example.compraagro.RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 
 }
