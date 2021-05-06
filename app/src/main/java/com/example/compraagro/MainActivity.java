@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext() ,LoginActivity.class));
+                startActivity(new Intent(getApplicationContext() ,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 Toast.makeText(getApplicationContext(),"Sesion cerrada",Toast.LENGTH_LONG).show();
             }
         });

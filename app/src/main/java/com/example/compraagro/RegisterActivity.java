@@ -26,16 +26,17 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
 
-
     FirebaseAuth auth;
+
     DatabaseReference reference;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
 
         auth = FirebaseAuth.getInstance();
 
@@ -49,8 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                register(email.getText().toString(),password.getText().toString(),username.getText().toString());
 
-                register(email.getText().toString(),password.getText().toString());
                 //Toast.makeText(com.example.compraagro.RegisterActivity.this, email.getText().toString()+password.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -58,18 +59,36 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-
-    private void register(String email, String password){
+    private void register(String email, String password,String name){
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
 
-                            Intent intent = new Intent(com.example.compraagro.RegisterActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            assert firebaseUser != null;
+                            String userid = firebaseUser.getUid();
+
+                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("id", userid);
+                            hashMap.put("Nombres", name);
+
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Intent intent = new Intent(com.example.compraagro.RegisterActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+
 
                         } else {
                             Toast.makeText(com.example.compraagro.RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
@@ -77,5 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }

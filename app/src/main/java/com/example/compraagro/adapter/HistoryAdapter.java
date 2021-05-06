@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> implements View.OnClickListener {
 
-
-
     private Context mContext;
     ArrayList<Product> mProduct;
     private View.OnClickListener listener;

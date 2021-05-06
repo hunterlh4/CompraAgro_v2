@@ -69,6 +69,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <CheckBox
+                android:id="@+id/chkRememberPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="No cerrar sesión"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp" />
+
 
             <TextView
                 android:id="@+id/tvRestorePassword"
@@ -76,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:textSize="17sp"
-                android:layout_marginTop="20dp"
                 android:textColor="#2F9F65"
                 android:layout_gravity="center"
                 android:clickable="true"
@@ -87,30 +96,28 @@
 
             <LinearLayout
                 android:layout_marginTop="60dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
 
                 <Button
                     android:id="@+id/btnLogIn"
-                    android:layout_weight="1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_margin="12dp"
-                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/round_edges"
                     android:text="Iniciar Sesion" />
 
                 <Button
                     android:id="@+id/btnSignUp"
-                    android:layout_weight="1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_margin="12dp"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/round_edges"
                     android:text="Crear cuenta" />
             </LinearLayout>

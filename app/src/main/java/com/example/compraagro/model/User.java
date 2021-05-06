@@ -73,7 +73,9 @@ public class User {
     private String Email;
     private String Telefono;
     private String TipoUsuario;
+    public User() {
 
+    }
     public User(String nombres, String apellidos, String departamento, String dni, String email, String telefono, String tipoUsuario, String token) {
         Nombres = nombres;
         Apellidos = apellidos;

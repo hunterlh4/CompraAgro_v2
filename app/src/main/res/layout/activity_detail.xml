@@ -25,19 +25,19 @@
                 android:layout_height="wrap_content"
                 android:text="Papa"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/titulo"
+                android:textSize="40sp"
                 android:textStyle="bold"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageButton
                 android:id="@+id/ivProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/papa"
-                android:layout_marginBottom="12dp"/>
+                android:src="@drawable/papa" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,14 +45,15 @@
                 android:text="Descripcion"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="@dimen/subtitulo"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/tvDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
                 android:text="Papa Rica"
-                android:textSize="@dimen/descripcion_subtitulo"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,14 +62,14 @@
                 android:text="Cantidad"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="@dimen/subtitulo"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/tvCantidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:textSize="@dimen/descripcion_subtitulo"
+                android:textSize="20sp"
                 android:text="100kg"/>
 
             <TextView
@@ -77,14 +78,14 @@
                 android:text="Precio"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="@dimen/subtitulo"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/tvPrecio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:textSize="@dimen/descripcion_subtitulo"
+                android:textSize="20sp"
                 android:text="S/200.00"/>
 
             <TextView
@@ -93,7 +94,7 @@
                 android:text="Vendedor"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="@dimen/subtitulo"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/tvPriceProduct"
@@ -101,15 +102,15 @@
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
                 android:layout_marginBottom="12dp"
-                android:textSize="@dimen/descripcion_subtitulo"
+                android:textSize="20sp"
                 android:text="Pedro"/>
             <Button
                 android:id="@+id/btnProfile"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="10dp"
-                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:background="@drawable/round_edges"
                 android:text="Reservar" />
 
@@ -123,7 +124,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        app:fab_addButtonColorNormal="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fab_addButtonColorNormal="@color/colorPrimaryDark"
+        fab:fab_addButtonSize="normal"
+        fab:fab_labelStyle="@style/Etiquetas"
         fab:fab_labelsPosition="left">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -131,6 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorPrimary"
+            app:fab_size="normal"
             app:fab_icon="@drawable/ic_profile"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -138,6 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorPrimary"
+            app:fab_size="normal"
             app:fab_icon="@drawable/wpp"/>
 
 
@@ -146,6 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorPrimary"
+            app:fab_size="normal"
             app:fab_icon="@drawable/ic_phone"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
