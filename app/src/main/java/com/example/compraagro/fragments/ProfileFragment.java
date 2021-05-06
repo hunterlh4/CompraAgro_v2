@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class ProfileFragment extends Fragment {
 
-    TextView tvNombre;
+    TextView tvNombre,tvEmail;
     DatabaseReference reference;
     FirebaseUser fuser;
     StorageReference storageReference;
@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
 
 
         tvNombre= root.findViewById(R.id.tvNombre);
-
+        tvEmail= root.findViewById(R.id.tvEmail);
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
 
@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
                 User user = snapshot.getValue(User.class);
                 //Toast.makeText(getContext(),user.getNombres(),Toast.LENGTH_SHORT).show();
                 tvNombre.setText(user.getNombres());
-                ///tvNombre.setText(user.getNombres());
+                tvEmail.setText(user.getEmail());
 
             }
 
