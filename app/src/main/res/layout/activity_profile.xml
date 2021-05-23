@@ -1,9 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="25dp"
+        android:paddingBottom="25dp"
+        android:paddingEnd="25dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvTipoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perfil vendedor"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/profile"
+            app:civ_border_width="2dp"
+            android:layout_gravity="center_horizontal"
+            app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tvNombres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Miguel"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellidos"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tvApellidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arenas"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="miguel@gmail.com"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dirección"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tvDepartamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tacna"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefono"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tvTelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="999123456"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calificacion"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tvStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⭐⭐⭐⭐⭐"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCommentary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_marginTop="24dp"
+            android:id="@+id/btnAddCommentary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar comentario"
+            android:background="@drawable/round_edges"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</ScrollView>

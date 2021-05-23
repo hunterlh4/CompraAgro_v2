@@ -1,6 +1,7 @@
 package com.example.compraagro.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.compraagro.DetailActivity;
 import com.example.compraagro.R;
 import com.example.compraagro.model.Product;
 
@@ -39,6 +42,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
+        final Product product = mProduct.get(position);
+        holder.producto.setText(product.getNombre());
+        holder.descripcion.setText(product.getDescripcion());
+        holder.cantidad.setText(product.getCantidad());
+        holder.precio.setText(product.getPrecio());
+        Glide.with(mContext).load(product.getUrlImagen()).into(holder.imagen);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra("id", product.getIdProducto());
+                mContext.startActivity(intent);
+            }
+        });
+
+        /*
+        holder.imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, NewsDetailActivity.class);
+                intent.putExtra("newsid", news.getId());
+                mContext.startActivity(intent);
+            }
+        });
+        */
+
 
     }
 
@@ -63,7 +93,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private TextView descripcion;
         private TextView cantidad;
         private TextView precio;
-        //private ImageView imagen;
+        private ImageView imagen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,7 +101,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             descripcion = itemView.findViewById(R.id.tvDescripcion);
             cantidad = itemView.findViewById(R.id.tvCantidad);
             precio = itemView.findViewById(R.id.tvPrecio);
-            //imagen = itemView.findViewById(R.id.ivProduct);
+            imagen = itemView.findViewById(R.id.ivProduct);
         }
     }
 }

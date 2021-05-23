@@ -1,6 +1,11 @@
 package com.example.compraagro.model;
 
 public class Product {
+
+    public Product() {
+    }
+
+
     public String getUrlImagen() {
         return urlImagen;
     }

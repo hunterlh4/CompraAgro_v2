@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,8 @@ import com.google.firebase.storage.StorageReference;
 
 public class ProfileFragment extends Fragment {
 
-    TextView tvNombre,tvEmail;
+    TextView tvNombre,tvApellidos,tvEmail,tvDepartamento,tvTelefono;
+    ImageView profileImage;
     DatabaseReference reference;
     FirebaseUser fuser;
     StorageReference storageReference;
@@ -38,7 +40,12 @@ public class ProfileFragment extends Fragment {
 
 
         tvNombre= root.findViewById(R.id.tvNombre);
+        tvApellidos= root.findViewById(R.id.tvApellidos);
         tvEmail= root.findViewById(R.id.tvEmail);
+        tvDepartamento= root.findViewById(R.id.tvDepartamento);
+        tvTelefono= root.findViewById(R.id.tvTelefono);
+        profileImage = root.findViewById(R.id.profile_image);
+
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
 
@@ -51,7 +58,10 @@ public class ProfileFragment extends Fragment {
                 User user = snapshot.getValue(User.class);
                 //Toast.makeText(getContext(),user.getNombres(),Toast.LENGTH_SHORT).show();
                 tvNombre.setText(user.getNombres());
+                tvApellidos.setText(user.getApellidos());
                 tvEmail.setText(user.getEmail());
+                tvDepartamento.setText(user.getDepartamento());
+                tvTelefono.setText(user.getTelefono());
 
             }
 

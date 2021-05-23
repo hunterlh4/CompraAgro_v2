@@ -58,13 +58,15 @@ public class User {
         TipoUsuario = tipoUsuario;
     }
 
-    public String getToken() {
-        return Token;
+    public String getId() {
+        return Id;
     }
 
-    public void setToken(String token) {
-        Token = token;
+    public void setId(String id) {
+        Id = id;
     }
+
+
 
     private String Nombres;
     private String Apellidos;
@@ -73,10 +75,12 @@ public class User {
     private String Email;
     private String Telefono;
     private String TipoUsuario;
+    private String Id;
+
     public User() {
 
     }
-    public User(String nombres, String apellidos, String departamento, String dni, String email, String telefono, String tipoUsuario, String token) {
+    public User(String nombres, String apellidos, String departamento, String dni, String email, String telefono, String tipoUsuario, String id) {
         Nombres = nombres;
         Apellidos = apellidos;
         Departamento = departamento;
@@ -84,8 +88,8 @@ public class User {
         Email = email;
         Telefono = telefono;
         TipoUsuario = tipoUsuario;
-        Token = token;
+        Id = id;
     }
 
-    private String Token;
+
 }

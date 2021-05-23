@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.compraagro.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -40,9 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        MaterialEditText username= findViewById(R.id.username);
-        MaterialEditText email= findViewById(R.id.email);
-        MaterialEditText password= findViewById(R.id.password);
+        MaterialEditText nameUser= findViewById(R.id.nameUser);
+        MaterialEditText surnameUser= findViewById(R.id.surnameUser);
+        MaterialEditText phoneUser= findViewById(R.id.phoneUser);
+        MaterialEditText departmentUser= findViewById(R.id.departmentUser);
+        MaterialEditText emailUser= findViewById(R.id.emailUser);
+        MaterialEditText passwordUser= findViewById(R.id.passwordUser);
 
 
         Button btnRegister = findViewById(R.id.btnRegister);
@@ -50,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register(email.getText().toString(),password.getText().toString(),username.getText().toString());
+                register(emailUser.getText().toString(),passwordUser.getText().toString(),nameUser.getText().toString(),surnameUser.getText().toString(),phoneUser.getText().toString(),departmentUser.getText().toString());
 
                 //Toast.makeText(com.example.compraagro.RegisterActivity.this, email.getText().toString()+password.getText().toString(), Toast.LENGTH_SHORT).show();
             }
@@ -59,25 +64,28 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void register(String email, String password,String name){
-        auth.createUserWithEmailAndPassword(email, password)
+    private void register(String emailUser, String passwordUser,String nameUser,String surnameUser,String phoneUser,String departmentUser){
+        auth.createUserWithEmailAndPassword(emailUser, passwordUser)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
 
 
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
-                            assert firebaseUser != null;
-                            String userid = firebaseUser.getUid();
+                            String userid = UUID.randomUUID().toString();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userid);
-                            hashMap.put("Nombres", name);
-                            hashMap.put("Email", email);
-                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            User user= new User();
+                            user.setId(userid);
+                            user.setNombres(nameUser);
+                            user.setApellidos(surnameUser);
+                            user.setTelefono(phoneUser);
+                            user.setDepartamento(departmentUser);
+                            user.setTipoUsuario("Vendedor");
+                            user.setEmail(emailUser);
+
+                            reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
