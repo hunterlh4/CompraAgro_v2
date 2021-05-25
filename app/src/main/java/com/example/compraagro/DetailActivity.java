@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.compraagro.model.Commentary;
 import com.example.compraagro.model.Product;
+import com.example.compraagro.model.Transaction;
 import com.example.compraagro.model.User;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,19 +26,32 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
 public class DetailActivity extends AppCompatActivity {
 
     TextView tvNombre,tvDescripcion,tvCantidad,tvPrecio,tvPublicador;
     FloatingActionButton fabProfile,fabWhatsApp,fabPhone;
     ImageView productImage;
-    String id="",idPublicador="";
+    String id="",idPublication="",idPublicador="";
+    Button btnTransaction;
+
+    DatabaseReference mDatabase;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         id=getIntent().getExtras().getString("id");
+        idPublication=getIntent().getExtras().getString("idUser");
 
         tvNombre=findViewById(R.id.tvNombre);
         tvDescripcion=findViewById(R.id.tvDescripcion);
@@ -45,7 +62,15 @@ public class DetailActivity extends AppCompatActivity {
         fabProfile=findViewById(R.id.fabProfile);
         fabWhatsApp=findViewById(R.id.fabWhatsApp);
         fabPhone=findViewById(R.id.fabPhone);
+        btnTransaction = findViewById(R.id.btnTransaction);
 
+
+        btnTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadFirebase();
+            }
+        });
 
         readProduct();
 
@@ -136,8 +161,59 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private  void loadCommentaries(){
+    private void uploadFirebase(){
 
+        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
+
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Transaction transaction= new Transaction();
+        transaction.setIdTransaction(UUID.randomUUID().toString());
+        transaction.setIdProduct(id);
+        transaction.setIdBuyer(fuser.getUid());
+        transaction.setIdSeller(idPublication);
+        transaction.setDate(date);
+        transaction.setPrice(tvPrecio.getText().toString());
+        transaction.setWeight(tvCantidad.getText().toString());
+        transaction.setState("Reservado");
+        transaction.setNameProduct(tvNombre.getText().toString());
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Transactions");
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+
+            boolean agregar=true;
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Transaction transactions = snapshot.getValue(Transaction.class);
+                    if(transactions.getIdBuyer().equals(transaction.getIdBuyer()) && transactions.getIdProduct().equals(transaction.getIdProduct())){
+                        agregar=false;
+                        break;
+                    }
+                }
+
+                if(agregar){
+                    mDatabase.child("Transactions").child(transaction.getIdTransaction()).setValue(transaction);
+                    Toast.makeText(getApplication(),"Reservado",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplication(),"Ya lo reservó",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(getApplication(),"Cancelado",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        //Toast.makeText(getApplication(),"Subido",Toast.LENGTH_SHORT).show();
 
 
     }

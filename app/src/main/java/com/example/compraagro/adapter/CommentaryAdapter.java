@@ -1,20 +1,26 @@
 package com.example.compraagro.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.compraagro.DetailActivity;
 import com.example.compraagro.R;
 import com.example.compraagro.model.Commentary;
+import com.example.compraagro.model.Product;
 
 import java.util.ArrayList;
 
-public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.ViewHolder> implements View.OnClickListener{
+public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.ViewHolder> implements View.OnClickListener {
+
 
     private Context mContext;
     ArrayList<Commentary> mCommentary;
@@ -39,7 +45,7 @@ public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.Vi
     @NonNull
     @Override
     public CommentaryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_comentary,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_commentary,parent,false);
 
         view.setOnClickListener(this);
 
@@ -87,4 +93,5 @@ public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.Vi
             //imagen = itemView.findViewById(R.id.ivProduct);
         }
     }
+
 }

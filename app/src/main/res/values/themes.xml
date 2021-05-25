@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#87E360</item>
         <item name="colorPrimaryDark">#5BC137</item>
-        <item name="colorAccent">#8d6e63</item>
+        <item name="colorAccent">#FFD500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

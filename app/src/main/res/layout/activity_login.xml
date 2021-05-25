@@ -69,15 +69,15 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <CheckBox
-                android:id="@+id/chkRememberPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="No cerrar sesión"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="10dp"
-                android:textSize="15sp" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/chkRememberPassword"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:text="No cerrar sesión"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:textSize="15sp" />-->
 
 
             <TextView

@@ -27,7 +27,7 @@
             android:id="@+id/nameUser"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Nombre"/>
+            android:hint="Nombres"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"

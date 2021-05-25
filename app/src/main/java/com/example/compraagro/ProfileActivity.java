@@ -2,9 +2,11 @@ package com.example.compraagro;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.compraagro.adapter.CommentaryAdapter;
+import com.example.compraagro.adapter.ProductAdapter;
 import com.example.compraagro.model.Commentary;
+import com.example.compraagro.model.Product;
 import com.example.compraagro.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser fuser;
     StorageReference storageReference;
     String idPublicador;
+
     private RecyclerView rvCommentary;
     private ArrayList<Commentary> listCommentaries;
     private CommentaryAdapter commentaryAdapter;
@@ -62,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(idPublicador);
 
         loadCommentaries();
 
@@ -92,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnAddCommentary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ProfileActivity.this,CommentarActivity.class);
+                Intent intent=new Intent(ProfileActivity.this,CommentaryActivity.class);
                 intent.putExtra("idPublicador",idPublicador);
                 startActivity(intent);
             }
@@ -126,7 +130,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         Toast.makeText(this,"Cargando ???",Toast.LENGTH_SHORT).show();
-
-
     }
+
 }

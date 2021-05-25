@@ -7,6 +7,10 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CompraAgro">
-        <activity android:name=".CommentarActivity"></activity>
+        <activity android:name=".AcceptActivity"></activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".CommentaryActivity" />
         <activity android:name=".AddProductActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

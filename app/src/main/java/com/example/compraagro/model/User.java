@@ -66,8 +66,6 @@ public class User {
         Id = id;
     }
 
-
-
     private String Nombres;
     private String Apellidos;
     private String Departamento;
@@ -90,6 +88,5 @@ public class User {
         TipoUsuario = tipoUsuario;
         Id = id;
     }
-
 
 }

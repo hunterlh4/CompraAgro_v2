@@ -53,19 +53,22 @@ public class MarketFragment extends Fragment {
         recyclerView = root.findViewById(R.id.rvProducts);
         svSearch = root.findViewById(R.id.svSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        listaProductos = new ArrayList<Product>();
+        listaProductos = new ArrayList<>();
+
         readPublications();
-        /*
-        Product product= new Product("https://agro.bayer.pe/-/media/bcs-inter/ws_peru/cultivos/papa/papa.png","Papa","Papa","Papa","Papa","Papa","Papa");
-        listaProductos.add(product);
-        listaProductos.add(product);
-        listaProductos.add(product);
-        listaProductos.add(product);
-        productAdapter = new ProductAdapter(context,listaProductos);
 
-        recyclerView.setAdapter(productAdapter);
 
-         */
+
+//        Product product= new Product("https://agro.bayer.pe/-/media/bcs-inter/ws_peru/cultivos/papa/papa.png","Papa","Papa","Papa","Papa","Papa","Papa");
+//        listaProductos.add(product);
+//        listaProductos.add(product);
+//        listaProductos.add(product);
+//        listaProductos.add(product);
+//        productAdapter = new ProductAdapter(context,listaProductos);
+//
+//        recyclerView.setAdapter(productAdapter);
+
+
         FloatingActionButton addProduct = root.findViewById(R.id.addProduct);
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,20 +91,18 @@ public class MarketFragment extends Fragment {
             }
         });
 
-        /*
-
-        productAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                startActivity(intent);
-            }
-        });
-         */
+//        productAdapter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, DetailActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         return root;
     }
+
     private void readPublications() {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -128,6 +129,8 @@ public class MarketFragment extends Fragment {
             }
         });
     }
+
+
     private void searchProduct(String newText){
         ArrayList<Product> filterProducts = new ArrayList<>();
         for (Product obj: listaProductos){
@@ -138,6 +141,5 @@ public class MarketFragment extends Fragment {
         ProductAdapter adapterProduct = new ProductAdapter(context, filterProducts);
         recyclerView.setAdapter(adapterProduct);
     }
-
 
 }

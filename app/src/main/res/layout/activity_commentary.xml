@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CommentarActivity">
+    tools:context=".CommentaryActivity">
 
 
     <LinearLayout
@@ -37,13 +37,15 @@
             app:met_floatingLabel="normal"
             android:hint="Descripcion"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/starsCommentary"
+        <RatingBar
             android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Estrellas"/>
+            android:id="@+id/starsCommentary"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:numStars="5"
+            android:rating="4"
+            android:stepSize="1"
+            />
 
         <Button
             android:layout_width="match_parent"

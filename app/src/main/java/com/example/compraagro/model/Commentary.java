@@ -1,6 +1,7 @@
 package com.example.compraagro.model;
 
 public class Commentary {
+
     String title;
     String description;
     String stars;
@@ -10,7 +11,7 @@ public class Commentary {
     String idProfile;
     String idCommentator;
 
-    public Commentary(String title, String description, String stars, String idCommentary, String nameCommentator, String idProfile, String idCommentator) {
+    public Commentary(String title, String description, String stars, String idCommentary,String nameCommentator, String idProfile, String idCommentator) {
         this.title = title;
         this.description = description;
         this.stars = stars;

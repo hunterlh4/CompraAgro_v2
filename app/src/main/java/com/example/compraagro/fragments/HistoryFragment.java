@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,13 +18,21 @@ import com.example.compraagro.R;
 import com.example.compraagro.adapter.HistoryAdapter;
 import com.example.compraagro.adapter.ProductAdapter;
 import com.example.compraagro.model.Product;
+import com.example.compraagro.model.Transaction;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class HistoryFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Product> listaProductos;
+    private ArrayList<Transaction> listTransactions;
     private Context context;
     private HistoryAdapter historyAdapter;
 
@@ -39,23 +48,39 @@ public class HistoryFragment extends Fragment {
         context = container.getContext();
         recyclerView = root.findViewById(R.id.rvProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        listaProductos = new ArrayList<Product>();
-        Product product= new Product("https://agro.bayer.pe/-/media/bcs-inter/ws_peru/cultivos/papa/papa.png","Papa","Papa","Papa","Papa","Papa","Papa");
-        listaProductos.add(product);
-        listaProductos.add(product);
-        listaProductos.add(product);
-        historyAdapter = new HistoryAdapter(context,listaProductos);
+        listTransactions = new ArrayList<Transaction>();
 
-        recyclerView.setAdapter(historyAdapter);
+        readTransactions();
 
-        historyAdapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                startActivity(intent);
-            }
-        });
 
         return root;
     }
+
+    private void readTransactions() {
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Transactions");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listTransactions.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Transaction transactions = snapshot.getValue(Transaction.class);
+
+                    listTransactions.add(transactions);
+
+                }
+
+                historyAdapter = new HistoryAdapter(getContext(), listTransactions);
+                recyclerView.setAdapter(historyAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

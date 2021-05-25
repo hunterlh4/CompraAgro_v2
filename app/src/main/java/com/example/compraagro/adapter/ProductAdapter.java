@@ -42,6 +42,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
+
         final Product product = mProduct.get(position);
         holder.producto.setText(product.getNombre());
         holder.descripcion.setText(product.getDescripcion());
@@ -54,21 +55,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailActivity.class);
                 intent.putExtra("id", product.getIdProducto());
+                intent.putExtra("idUser", product.getIdUsuario());
                 mContext.startActivity(intent);
             }
         });
 
-        /*
-        holder.imagen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, NewsDetailActivity.class);
-                intent.putExtra("newsid", news.getId());
-                mContext.startActivity(intent);
-            }
-        });
-        */
-
+//        holder.imagen.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(mContext, NewsDetailActivity.class);
+//                intent.putExtra("newsid", news.getId());
+//                mContext.startActivity(intent);
+//            }
+//        });
 
     }
 

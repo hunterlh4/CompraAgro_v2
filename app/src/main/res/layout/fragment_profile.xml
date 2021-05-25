@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="Perfil vendedor"
             android:layout_gravity="center"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -39,14 +39,14 @@
             android:text="Nombre"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
-            android:id="@+id/tvNombre"
+            android:id="@+id/tvNombres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Miguel"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,14 +54,14 @@
             android:text="Apellidos"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/tvApellidos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Arenas"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,14 +69,14 @@
             android:text="Email"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="miguel@gmail.com"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,14 +84,14 @@
             android:text="Dirección"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/tvDepartamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tacna"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,14 +99,14 @@
             android:text="Telefono"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textSize="24sp"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/tvTelefono"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="999123456"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
 
     </LinearLayout>
 </ScrollView>
