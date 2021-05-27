@@ -10,9 +10,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.compraagro.AddProductActivity;
 import com.example.compraagro.DetailActivity;
@@ -31,6 +41,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 public class MarketFragment extends Fragment {
 
 
@@ -39,6 +51,7 @@ public class MarketFragment extends Fragment {
     private Context context;
     private ProductAdapter productAdapter;
     private SearchView svSearch;
+    private ImageButton btnFilter;
 
 
     @Override
@@ -52,6 +65,7 @@ public class MarketFragment extends Fragment {
         context = container.getContext();
         recyclerView = root.findViewById(R.id.rvProducts);
         svSearch = root.findViewById(R.id.svSearch);
+        btnFilter = root.findViewById(R.id.btnFilter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         listaProductos = new ArrayList<>();
 
@@ -91,6 +105,13 @@ public class MarketFragment extends Fragment {
             }
         });
 
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonShowPopupWindowClick(v);
+            }
+        });
+
 //        productAdapter.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -101,6 +122,33 @@ public class MarketFragment extends Fragment {
 
 
         return root;
+    }
+
+    public void onButtonShowPopupWindowClick(View view) {
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_filter, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, view.findViewById(R.id.btnFilter).TEXT_ALIGNMENT_CENTER, 0, -430);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+
     }
 
     private void readPublications() {
