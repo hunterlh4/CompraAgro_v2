@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CompraAgro">
-        <activity android:name=".AcceptActivity"></activity>
+        <activity android:name=".EditProductActivity"></activity>
+        <activity android:name=".EditActivity" />
+        <activity android:name=".AcceptActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".CommentaryActivity" />
         <activity android:name=".AddProductActivity" />

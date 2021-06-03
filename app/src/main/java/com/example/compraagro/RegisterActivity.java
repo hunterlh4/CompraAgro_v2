@@ -73,7 +73,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
 
 
-                            String userid = UUID.randomUUID().toString();
+                            String userid = task.getResult().getUser().getUid();
+
+                            Toast.makeText(com.example.compraagro.RegisterActivity.this, userid, Toast.LENGTH_SHORT).show();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 

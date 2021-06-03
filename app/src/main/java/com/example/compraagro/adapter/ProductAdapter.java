@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.compraagro.DetailActivity;
+import com.example.compraagro.EditActivity;
 import com.example.compraagro.R;
 import com.example.compraagro.model.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -43,6 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
 
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Product product = mProduct.get(position);
         holder.producto.setText(product.getNombre());
         holder.descripcion.setText(product.getDescripcion());
@@ -53,10 +57,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                if (product.getIdUsuario().equals(firebaseUser.getUid())) {
+
+                    Intent intent = new Intent(mContext, EditActivity.class);
+                    intent.putExtra("id", product.getIdProducto());
+                    intent.putExtra("idUser", product.getIdUsuario());
+                    mContext.startActivity(intent);
+                } else {
+
                 Intent intent = new Intent(mContext, DetailActivity.class);
                 intent.putExtra("id", product.getIdProducto());
                 intent.putExtra("idUser", product.getIdUsuario());
                 mContext.startActivity(intent);
+            }
             }
         });
 
