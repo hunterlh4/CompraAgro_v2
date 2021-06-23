@@ -60,7 +60,45 @@ public class Product {
         this.idProducto = idProducto;
     }
 
-    private String urlImagen;
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
 
     public Product(String urlImagen, String nombre, String descripcion, String precio, String cantidad, String idUsuario, String idProducto) {
         this.urlImagen = urlImagen;
@@ -76,6 +114,14 @@ public class Product {
     private String descripcion;
     private String precio;
     private String cantidad;
+    private String urlImagen;
     private String idUsuario;
     private String idProducto;
+
+    private String estado;
+    private String fecha;
+    private String departamento;
+    private String lat;
+    private String lng;
+
 }

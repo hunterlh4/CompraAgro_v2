@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.example.compraagro.DetailActivity;
 import com.example.compraagro.R;
@@ -26,7 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class HistoryFragment extends Fragment {
@@ -35,7 +38,7 @@ public class HistoryFragment extends Fragment {
     private ArrayList<Transaction> listTransactions;
     private Context context;
     private HistoryAdapter historyAdapter;
-
+    Spinner spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,14 +52,42 @@ public class HistoryFragment extends Fragment {
         recyclerView = root.findViewById(R.id.rvProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         listTransactions = new ArrayList<Transaction>();
+        spinner= root.findViewById(R.id.spinner);
 
-        readTransactions();
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.historySpinner, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        readTransactions("Compras");
+                        break;
+                    case 1:
+                        readTransactions("Ventas");
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
 
         return root;
     }
 
-    private void readTransactions() {
+    private void readTransactions(String tipo) {
+
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Transactions");
@@ -68,12 +99,55 @@ public class HistoryFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Transaction transactions = snapshot.getValue(Transaction.class);
 
-                    listTransactions.add(transactions);
+                    if(tipo.equals("Compras")){
+
+                        if(transactions.getIdBuyer().equals(firebaseUser.getUid())){
+
+                            listTransactions.add(transactions);
+                        }
+                    } else
+                    if(tipo.equals("Ventas")){
+
+                        if(transactions.getIdSeller().equals(firebaseUser.getUid())){
+
+                            listTransactions.add(transactions);
+
+                            if(transactions.getState().equals("Vendido")){
+
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");
+
+                                reference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        listTransactions.clear();
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            Product products = snapshot.getValue(Product.class);
+
+                                            if(transactions.getIdProduct().equals(products.getIdProducto())){
+                                                products.setEstado("Inactivo");
+                                                reference.child(products.getIdProducto()).setValue(products);
+                                            }
+
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+
+                        }
+                    }
+                    historyAdapter = new HistoryAdapter(getContext(), listTransactions);
+                    recyclerView.setAdapter(historyAdapter);
 
                 }
 
-                historyAdapter = new HistoryAdapter(getContext(), listTransactions);
-                recyclerView.setAdapter(historyAdapter);
             }
 
             @Override
