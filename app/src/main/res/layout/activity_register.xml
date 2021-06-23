@@ -45,13 +45,7 @@
             app:met_floatingLabel="normal"
             android:hint="Telefono"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/departmentUser"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            android:hint="Departamento"/>
+
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -68,16 +62,24 @@
             android:id="@+id/passwordUser"
             android:inputType="textPassword"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             app:met_floatingLabel="normal"
             android:hint="Contraseña"/>
 
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/departmentUser"
+            android:layout_marginTop="10dp"
+            android:hint="Departamento"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrar"
             android:id="@+id/btnRegister"
             android:background="@color/colorPrimaryDark"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:textColor="#fff"/>
 
 
