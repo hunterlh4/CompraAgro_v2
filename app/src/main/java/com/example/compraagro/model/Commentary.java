@@ -6,6 +6,8 @@ public class Commentary {
     String description;
     String stars;
     String nameCommentator;
+    String date;
+    String urlImagen;
 
     String idCommentary;
     String idProfile;
@@ -24,6 +26,21 @@ public class Commentary {
     public Commentary() {
     }
 
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getNameCommentator() {
         return nameCommentator;

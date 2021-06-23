@@ -19,6 +19,8 @@ import com.example.compraagro.model.Product;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.ViewHolder> implements View.OnClickListener {
 
 
@@ -58,9 +60,26 @@ public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.Vi
         holder.tvTitle.setText(commentary.getTitle());
         holder.tvDescription.setText(commentary.getDescription());
         holder.tvNameComentator.setText(commentary.getNameCommentator());
-        holder.tvStars.setText(commentary.getStars());
 
-//        Glide.with(mContext).load(commentary.getUrlImagen()).into(holder.imagen);
+        holder.tvDate.setText(commentary.getDate());
+
+        String stars="";
+        switch (Integer.parseInt(commentary.getStars())){
+            case 1: stars="⭐";
+                break;
+            case 2: stars="⭐⭐";
+                break;
+            case 3: stars="⭐⭐⭐";
+                break;
+            case 4: stars="⭐⭐⭐⭐";
+                break;
+            case 5: stars="⭐⭐⭐⭐⭐";
+                break;
+            default: stars="⭐";
+                break;
+        }
+        holder.tvStars.setText(stars);
+        Glide.with(mContext).load(commentary.getUrlImagen()).into(holder.imageComentator);
 //
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -78,10 +97,13 @@ public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+
+        private CircleImageView imageComentator;
         private TextView tvTitle;
         private TextView tvDescription;
         private TextView tvNameComentator;
         private TextView tvStars;
+        private TextView tvDate;
         //private ImageView imagen;
 
         public ViewHolder(@NonNull View itemView) {
@@ -90,7 +112,8 @@ public class CommentaryAdapter extends RecyclerView.Adapter<CommentaryAdapter.Vi
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvNameComentator = itemView.findViewById(R.id.tvNameComentator);
             tvStars = itemView.findViewById(R.id.tvStars);
-            //imagen = itemView.findViewById(R.id.ivProduct);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            imageComentator = itemView.findViewById(R.id.imageComentator);
         }
     }
 
