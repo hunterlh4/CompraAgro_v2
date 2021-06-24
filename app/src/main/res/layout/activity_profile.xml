@@ -114,12 +114,15 @@
             android:layout_marginTop="20dp"
             android:textSize="22sp"/>
 
-        <TextView
+
+        <RatingBar
             android:id="@+id/tvStars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="⭐⭐⭐⭐⭐"
-            android:textSize="18sp"/>
+            android:numStars="5"
+            android:rating="4"
+            android:stepSize="0.1"
+            />
 
         <TextView
             android:layout_width="wrap_content"
