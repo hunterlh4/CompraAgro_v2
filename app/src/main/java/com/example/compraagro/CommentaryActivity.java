@@ -27,6 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.UploadTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class CommentaryActivity extends AppCompatActivity {
@@ -62,24 +65,12 @@ public class CommentaryActivity extends AppCompatActivity {
 
     private void uploadFirebase(){
 
-        String stars="";
-        int numStars=(int)starsCommentary.getRating();
 
-        switch (numStars){
-            case 1: stars="⭐";
-                    break;
-            case 2: stars="⭐⭐";
-                break;
-            case 3: stars="⭐⭐⭐";
-                break;
-            case 4: stars="⭐⭐⭐⭐";
-                break;
-            case 5: stars="⭐⭐⭐⭐⭐";
-                break;
-            default: stars="⭐";
-                break;
-        }
+        int intStars = (int) starsCommentary.getRating();
 
+        String stars = String.valueOf(intStars);
+
+        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -90,6 +81,7 @@ public class CommentaryActivity extends AppCompatActivity {
         commentary.setStars(stars);
         commentary.setIdCommentator(fuser.getUid());
         commentary.setIdProfile(idPublicador);
+        commentary.setDate(date);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -100,9 +92,16 @@ public class CommentaryActivity extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     if(user.getId().equals(fuser.getUid())){
                         commentary.setNameCommentator(user.getNombres());
+                        commentary.setUrlImagen(user.getUrlImagen());
                         mDatabase.child("Commentaries").child(commentary.getIdCommentary()).setValue(commentary);
                     }
                 }
+
+
+                Toast.makeText(getApplication(),"Subido",Toast.LENGTH_SHORT).show();
+
+                finish();
+
             }
 
             @Override
@@ -113,7 +112,6 @@ public class CommentaryActivity extends AppCompatActivity {
         });
 
 
-        Toast.makeText(getApplication(),"Subido",Toast.LENGTH_SHORT).show();
 
 
     }

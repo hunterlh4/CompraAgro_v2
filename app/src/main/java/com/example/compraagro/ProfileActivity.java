@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.compraagro.adapter.CommentaryAdapter;
 import com.example.compraagro.adapter.ProductAdapter;
 import com.example.compraagro.model.Commentary;
@@ -40,6 +42,9 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser fuser;
     StorageReference storageReference;
     String idPublicador;
+    RatingBar tvStars;
+    float averageStars=0;
+    float numCommentaries=0;
 
     private RecyclerView rvCommentary;
     private ArrayList<Commentary> listCommentaries;
@@ -62,7 +67,9 @@ public class ProfileActivity extends AppCompatActivity {
         tvDepartamento= findViewById(R.id.tvDepartamento);
         tvTelefono= findViewById(R.id.tvTelefono);
         profileImage = findViewById(R.id.profile_image);
+        tvStars = findViewById(R.id.tvStars);
         btnAddCommentary = findViewById(R.id.btnAddCommentary);
+        tvStars.setEnabled(false);
 
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -82,6 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
                 tvEmail.setText(user.getEmail());
                 tvDepartamento.setText(user.getDepartamento());
                 tvTelefono.setText(user.getTelefono());
+                Glide.with(getApplicationContext()).load(user.getUrlImagen()).into(profileImage);
 
             }
 
@@ -109,6 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Commentaries");
 
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -117,9 +126,24 @@ public class ProfileActivity extends AppCompatActivity {
                     Commentary commentaries = snapshot.getValue(Commentary.class);
                     if(commentaries.getIdProfile().equals(idPublicador)){
                         listCommentaries.add(commentaries);
+
+
+
+                        averageStars+=Double.parseDouble(commentaries.getStars());
+                        numCommentaries++;
                     }
 
                 }
+
+                if(numCommentaries==0){
+                    averageStars=0;
+                } else {
+                    averageStars = averageStars/numCommentaries;
+
+                }
+
+                tvStars.setRating(averageStars);
+
                 commentaryAdapter = new CommentaryAdapter(getApplicationContext(), listCommentaries);
                 rvCommentary.setAdapter(commentaryAdapter);
             }
@@ -129,7 +153,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-        Toast.makeText(this,"Cargando ???",Toast.LENGTH_SHORT).show();
     }
 
 }

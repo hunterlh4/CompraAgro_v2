@@ -32,6 +32,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.UUID;
+
 public class EditProductActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 100;
@@ -51,6 +53,7 @@ public class EditProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+
 
         idProduct= getIntent().getExtras().getString("idProduct");
         Toast.makeText(getApplicationContext(),idProduct,Toast.LENGTH_SHORT).show();
@@ -244,4 +247,5 @@ public class EditProductActivity extends AppCompatActivity {
 
         }
     }
+
 }

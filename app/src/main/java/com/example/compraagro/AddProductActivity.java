@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.compraagro.adapter.ProductAdapter;
 import com.example.compraagro.model.Product;
 import com.example.compraagro.model.User;
 import com.google.android.gms.tasks.Continuation;
@@ -34,6 +35,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -80,6 +85,8 @@ public class AddProductActivity extends AppCompatActivity {
                 uploadFirebase();
             }
         });
+
+
 
 
     }
@@ -136,15 +143,18 @@ public class AddProductActivity extends AppCompatActivity {
                         mUri=downloadUri.toString();
                         Toast.makeText(getApplication(),"Carga completa de la imagen",Toast.LENGTH_SHORT).show();
                         String date = String.valueOf(android.text.format.DateFormat.format("dd-MM-yyyy", new java.util.Date()));
+                        String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
 
                         Product product= new Product();
                         product.setIdProducto(UUID.randomUUID().toString());
                         product.setUrlImagen(mUri);
                         product.setNombre(nameProduct.getEditText().getText().toString());
                         product.setDescripcion(descriptionProduct.getEditText().getText().toString());
-                        product.setCantidad(quantityProduct.getEditText().getText().toString());
-                        product.setPrecio(priceProduct.getEditText().getText().toString());
-                        product.setIdUsuario(firebaseUser.getUid());
+                        product.setCantidad(quantityProduct.getEditText().getText().toString()+" Kg");
+                        product.setPrecio("S/. "+priceProduct.getEditText().getText().toString());
+                        product.setEstado("Activo");
+                        product.setFecha(fecha);
 
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -153,8 +163,25 @@ public class AddProductActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                                     User user = snapshot.getValue(User.class);
+
+                                    int i=0;
                                     if(user.getId().equals(firebaseUser.getUid())){
                                         product.setIdUsuario(user.getId());
+                                        product.setDepartamento(user.getDepartamento());
+                                        for(String departamento : getResources().getStringArray(R.array.departamentos)  ){
+
+
+                                            if(departamento.equals(user.getDepartamento())){
+
+
+                                                product.setLat(getResources().getStringArray(R.array.lat)[i]);
+                                                product.setLng(getResources().getStringArray(R.array.lng)[i]);
+
+                                            }
+
+                                            i++;
+                                        }
+
                                         mDatabase.child("Products").child(product.getIdProducto()).setValue(product);
                                     }
                                 }
@@ -169,7 +196,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
                         Toast.makeText(getApplication(),"Subido",Toast.LENGTH_SHORT).show();
-
+                        finish();
                     } else {
 
                         Toast.makeText(getApplication(),"Carga completa?????",Toast.LENGTH_SHORT).show();
@@ -180,5 +207,16 @@ public class AddProductActivity extends AppCompatActivity {
 
         }
     }
+
+//    private void searchProduct(String newText){
+//        ArrayList<Product> filterProducts = new ArrayList<>();
+//        for (Product obj: listaProductos){
+//            if (obj.getNombre().toLowerCase().contains(newText.toLowerCase()) || obj.getDescripcion().toLowerCase().contains(newText.toLowerCase())){
+//                filterProducts.add(obj);
+//            }
+//        }
+//        ProductAdapter adapterProduct = new ProductAdapter(context, filterProducts);
+//        recyclerView.setAdapter(adapterProduct);
+//    }
 
 }

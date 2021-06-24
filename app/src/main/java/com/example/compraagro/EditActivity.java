@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.example.compraagro.model.Product;
 import com.example.compraagro.model.User;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,8 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -36,12 +32,16 @@ public class EditActivity extends AppCompatActivity {
     String idProduct="",idPublication="",idPublicador="";
     Button btnEdit,btnDelete;
 
+    String phoneUser="123456789";
     DatabaseReference mDatabase;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         idProduct=getIntent().getExtras().getString("id");
@@ -97,14 +97,14 @@ public class EditActivity extends AppCompatActivity {
         fabWhatsApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:123456789")));
+                sendWhatsApp();
             }
         });
 
         fabPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:123456789")));
+                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:"+phoneUser)));
             }
         });
 
@@ -112,6 +112,14 @@ public class EditActivity extends AppCompatActivity {
     }
 
 
+    private void sendWhatsApp() {
+        Intent intent= new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        String msg= "Hola me interesa su producto de CompraAgro.";
+        String uri = "whatsapp://send?phone="+phoneUser+"&text"+msg;
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
+    }
 
 
     private void readProduct() {
@@ -144,6 +152,7 @@ public class EditActivity extends AppCompatActivity {
 
                                     if(user.getId().equals(idPublicador)){
                                         tvPublicador.setText(user.getNombres());
+                                        phoneUser = user.getTelefono();
 
 
                                     }
@@ -170,6 +179,5 @@ public class EditActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }

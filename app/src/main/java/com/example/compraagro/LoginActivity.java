@@ -30,6 +30,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (firebaseUser != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         auth = FirebaseAuth.getInstance();
         TextInputLayout etEmail=findViewById(R.id.etEmail);
         TextInputLayout etPassword=findViewById(R.id.etPassword);

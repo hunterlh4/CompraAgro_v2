@@ -41,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
 
     DatabaseReference mDatabase;
 
-
+    String phoneUser="123456789";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +86,14 @@ public class DetailActivity extends AppCompatActivity {
         fabWhatsApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:123456789")));
+                sendWhatsApp();
             }
         });
 
         fabPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:123456789")));
+                startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:"+phoneUser)));
             }
         });
 
@@ -101,7 +101,14 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-
+    private void sendWhatsApp() {
+        Intent intent= new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        String msg= "Hola me interesa su producto de CompraAgro.";
+        String uri = "whatsapp://send?phone="+phoneUser+"&text="+msg;
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
+    }
 
     private void readProduct() {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -133,7 +140,7 @@ public class DetailActivity extends AppCompatActivity {
 
                                     if(user.getId().equals(idPublicador)){
                                         tvPublicador.setText(user.getNombres());
-
+                                        phoneUser = user.getTelefono();
 
                                     }
 

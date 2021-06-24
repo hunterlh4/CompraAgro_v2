@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,9 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
         MaterialEditText nameUser= findViewById(R.id.nameUser);
         MaterialEditText surnameUser= findViewById(R.id.surnameUser);
         MaterialEditText phoneUser= findViewById(R.id.phoneUser);
-        MaterialEditText departmentUser= findViewById(R.id.departmentUser);
         MaterialEditText emailUser= findViewById(R.id.emailUser);
         MaterialEditText passwordUser= findViewById(R.id.passwordUser);
+        Spinner departmentUser = (Spinner) findViewById(R.id.departmentUser);
 
 
         Button btnRegister = findViewById(R.id.btnRegister);
@@ -56,11 +58,17 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register(emailUser.getText().toString(),passwordUser.getText().toString(),nameUser.getText().toString(),surnameUser.getText().toString(),phoneUser.getText().toString(),departmentUser.getText().toString());
+                register(emailUser.getText().toString(),passwordUser.getText().toString(),nameUser.getText().toString(),surnameUser.getText().toString(),phoneUser.getText().toString(),departmentUser.getSelectedItem().toString());
 
-                //Toast.makeText(com.example.compraagro.RegisterActivity.this, email.getText().toString()+password.getText().toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(com.example.compraagro.RegisterActivity.this, departmentUser.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.departamentos, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        departmentUser.setAdapter(adapter);
+
 
 
     }
@@ -75,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             String userid = task.getResult().getUser().getUid();
 
+
                             Toast.makeText(com.example.compraagro.RegisterActivity.this, userid, Toast.LENGTH_SHORT).show();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
@@ -87,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setDepartamento(departmentUser);
                             user.setTipoUsuario("Vendedor");
                             user.setEmail(emailUser);
+                            user.setUrlImagen("https://firebasestorage.googleapis.com/v0/b/compraagro-a6c29.appspot.com/o/uploads%2Fprofile.png?alt=media&token=5409a72f-8ecb-4fa9-af62-7bfd0682c26c");
 
                             reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
