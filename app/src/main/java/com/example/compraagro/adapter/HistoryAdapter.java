@@ -53,6 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
 
+
         final Transaction transaction = mTransaction.get(position);
         holder.producto.setText(transaction.getNameProduct());
         holder.descripcion.setText(transaction.getState()+" el "+transaction.getDate());
@@ -70,6 +71,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorFallido));
         }
 
+//
+//        Glide.with(mContext).load(product.getUrlImagen()).into(holder.imagen);
+//
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

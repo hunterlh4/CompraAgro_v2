@@ -163,7 +163,13 @@ public class MarketFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Product products = snapshot.getValue(Product.class);
 
-                    listaProductos.add(products);
+                    if(products.getEstado()!=null){
+
+                        if(products.getEstado().equals("Activo")){
+
+                            listaProductos.add(products);
+                        }
+                    }
 
                 }
 

@@ -2,6 +2,14 @@ package com.example.compraagro.model;
 
 public class User {
 
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
     public String getNombres() {
         return Nombres;
     }
@@ -74,6 +82,7 @@ public class User {
     private String Telefono;
     private String TipoUsuario;
     private String Id;
+    String urlImagen;
 
     public User() {
 

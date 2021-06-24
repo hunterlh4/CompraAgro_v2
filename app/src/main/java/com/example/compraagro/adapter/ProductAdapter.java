@@ -52,14 +52,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.descripcion.setText(product.getDescripcion());
         holder.cantidad.setText(product.getCantidad());
         holder.precio.setText(product.getPrecio());
+        holder.fecha.setText(product.getFecha());
         Glide.with(mContext).load(product.getUrlImagen()).into(holder.imagen);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                if (product.getIdUsuario().equals(firebaseUser.getUid())) {
+                if(product.getIdUsuario().equals(firebaseUser.getUid())){
 
                     Intent intent = new Intent(mContext, EditActivity.class);
                     intent.putExtra("id", product.getIdProducto());
@@ -67,11 +67,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     mContext.startActivity(intent);
                 } else {
 
-                Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra("id", product.getIdProducto());
-                intent.putExtra("idUser", product.getIdUsuario());
-                mContext.startActivity(intent);
-            }
+                    Intent intent = new Intent(mContext, DetailActivity.class);
+                    intent.putExtra("id", product.getIdProducto());
+                    intent.putExtra("idUser", product.getIdUsuario());
+                    mContext.startActivity(intent);
+                }
+
             }
         });
 
@@ -107,6 +108,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         private TextView descripcion;
         private TextView cantidad;
         private TextView precio;
+        private TextView fecha;
         private ImageView imagen;
 
         public ViewHolder(@NonNull View itemView) {
@@ -116,6 +118,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             cantidad = itemView.findViewById(R.id.tvCantidad);
             precio = itemView.findViewById(R.id.tvPrecio);
             imagen = itemView.findViewById(R.id.ivProduct);
+            fecha = itemView.findViewById(R.id.tvFecha);
         }
     }
 }

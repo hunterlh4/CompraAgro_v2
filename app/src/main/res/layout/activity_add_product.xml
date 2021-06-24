@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:id="@+id/quantityProduct"
-            android:hint="Cantidad del producto"
+            android:hint="Cantidad del producto (Kg)"
             app:startIconDrawable="@drawable/ic_form"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:id="@+id/priceProduct"
-            android:hint="Precio del producto"
+            android:hint="Precio del producto (S/. )"
             app:startIconDrawable="@drawable/ic_form"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
