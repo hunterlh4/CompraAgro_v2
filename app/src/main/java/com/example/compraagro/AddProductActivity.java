@@ -9,10 +9,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.compraagro.adapter.ProductAdapter;
@@ -47,12 +51,16 @@ public class AddProductActivity extends AppCompatActivity {
     Uri imageUri=null;
     String mUri;
     TextInputLayout nameProduct,descriptionProduct,quantityProduct,priceProduct;
+    TextView recommendedPrice;
     ImageButton imageButton;
 
     DatabaseReference mDatabase;
     FirebaseUser firebaseUser;
     StorageReference storageReference;
     StorageTask uploadTask;
+    Spinner spinner;
+
+    float price=0,numPrice=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +71,14 @@ public class AddProductActivity extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        nameProduct=findViewById(R.id.nameProduct);
+        //nameProduct=findViewById(R.id.nameProduct);
         descriptionProduct=findViewById(R.id.descriptionProduct);
         quantityProduct=findViewById(R.id.quantityProduct);
         priceProduct=findViewById(R.id.priceProduct);
         imageButton=findViewById(R.id.ibAddProduct);
+        recommendedPrice=findViewById(R.id.recommendedPrice);
         Button btnAddProduct=findViewById(R.id.btnAddProduct);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +98,70 @@ public class AddProductActivity extends AppCompatActivity {
 
 
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.productsSpinner, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                checkPrice();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
+
+    public void checkPrice(){
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                price=0;
+                numPrice=0;
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+
+                    if(product.getNombre().equals(spinner.getSelectedItem().toString())){
+                        //price+=  Float.parseFloat(product.getPrecio());
+
+                        price += Float.parseFloat(product.getPrecio());
+                        numPrice++;
+
+                    }
+
+                }
+
+
+                if(numPrice==0){
+
+                    recommendedPrice.setText("No existen precios disponibles sobre este producto.");
+                }else{
+
+                    price = price/numPrice;
+                    recommendedPrice.setText("El Precio recomendado es: S/ "+price);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -110,9 +181,9 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     private void uploadFirebase(){
-        if(imageUri==null){
+        if(imageUri==null && spinner.getSelectedItemPosition()!=0){
 
-            Toast.makeText(getApplication(),"Failed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(),"Faltan datos",Toast.LENGTH_SHORT).show();
         } else {
 
             //Toast.makeText(getApplication(),imageUri.toString(),Toast.LENGTH_SHORT).show();
@@ -146,13 +217,27 @@ public class AddProductActivity extends AppCompatActivity {
                         String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
 
+
                         Product product= new Product();
                         product.setIdProducto(UUID.randomUUID().toString());
                         product.setUrlImagen(mUri);
-                        product.setNombre(nameProduct.getEditText().getText().toString());
+                        product.setNombre(spinner.getSelectedItem().toString());
+
+
+                        switch ((spinner.getSelectedItemPosition()-1)/7){
+                            case 0: product.setTipo( getResources().getStringArray(R.array.productsType)[0]);
+                                        break;
+                            case 1: product.setTipo( getResources().getStringArray(R.array.productsType)[1]);
+                                break;
+                            case 2: product.setTipo( getResources().getStringArray(R.array.productsType)[2]);
+                                break;
+                            case 3: product.setTipo( getResources().getStringArray(R.array.productsType)[3]);
+                                break;
+                        }
+
                         product.setDescripcion(descriptionProduct.getEditText().getText().toString());
                         product.setCantidad(quantityProduct.getEditText().getText().toString()+" Kg");
-                        product.setPrecio("S/. "+priceProduct.getEditText().getText().toString());
+                        product.setPrecio(priceProduct.getEditText().getText().toString());
                         product.setEstado("Activo");
                         product.setFecha(fecha);
 
@@ -218,5 +303,6 @@ public class AddProductActivity extends AppCompatActivity {
 //        ProductAdapter adapterProduct = new ProductAdapter(context, filterProducts);
 //        recyclerView.setAdapter(adapterProduct);
 //    }
+
 
 }
