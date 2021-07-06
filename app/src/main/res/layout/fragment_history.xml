@@ -6,32 +6,32 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".fragments.HistoryFragment" >
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:text="Historial" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:gravity="center_horizontal"
-                android:text="Historial" />
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_margin="10dp"
+            />
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:layout_margin="10dp"
-                />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvProducts"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>

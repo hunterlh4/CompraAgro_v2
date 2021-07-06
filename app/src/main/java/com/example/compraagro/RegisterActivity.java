@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setId(userid);
                             user.setNombres(nameUser);
                             user.setApellidos(surnameUser);
-                            user.setTelefono(phoneUser);
+                            user.setTelefono("51"+phoneUser);
                             user.setDepartamento(departmentUser);
                             user.setTipoUsuario("Vendedor");
                             user.setEmail(emailUser);
@@ -108,6 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
                                         finish();
                                     }
                                 }
+
+
+
                             });
 
 

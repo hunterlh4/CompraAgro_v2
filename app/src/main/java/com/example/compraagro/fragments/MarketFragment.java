@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -48,10 +49,13 @@ public class MarketFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<Product> listaProductos;
+    private ArrayList<Product> filter;
     private Context context;
     private ProductAdapter productAdapter;
     private SearchView svSearch;
     private ImageButton btnFilter;
+
+    boolean frutas=true,hortalizas=true,legumbres=true,verduras=true;
 
 
     @Override
@@ -68,6 +72,7 @@ public class MarketFragment extends Fragment {
         btnFilter = root.findViewById(R.id.btnFilter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         listaProductos = new ArrayList<>();
+        filter = new ArrayList<>();
 
         readPublications();
 
@@ -121,6 +126,9 @@ public class MarketFragment extends Fragment {
 //        });
 
 
+
+
+
         return root;
     }
 
@@ -135,6 +143,69 @@ public class MarketFragment extends Fragment {
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+
+        CheckBox cbFrutas = popupView.findViewById(R.id.frutas);
+        CheckBox cbHortalizas = popupView.findViewById(R.id.hortalizas);
+        CheckBox cbLegumbres = popupView.findViewById(R.id.legumbres);
+        CheckBox cbVerduras = popupView.findViewById(R.id.verduras);
+
+        cbFrutas.setChecked(frutas);
+        cbHortalizas.setChecked(hortalizas);
+        cbLegumbres.setChecked(legumbres);
+        cbVerduras.setChecked(verduras);
+
+        cbFrutas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frutas= !frutas;
+                if(frutas){
+
+                    addProduct("Frutas");
+                } else {
+                    removeProduct("Frutas");
+                }
+            }
+        });
+
+        cbHortalizas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hortalizas= !hortalizas;
+                if(hortalizas){
+
+                    addProduct("Hortalizas");
+                } else {
+                    removeProduct("Hortalizas");
+                }
+            }
+        });
+
+        cbLegumbres.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                legumbres= !legumbres;
+                if(legumbres){
+
+                    addProduct("Legumbres");
+                } else {
+                    removeProduct("Legumbres");
+                }
+            }
+        });
+
+        cbVerduras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verduras= !verduras;
+                if(verduras){
+
+                    addProduct("Verduras");
+                } else {
+                    removeProduct("Verduras");
+                }
+            }
+        });
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
@@ -160,6 +231,7 @@ public class MarketFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listaProductos.clear();
+                filter.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Product products = snapshot.getValue(Product.class);
 
@@ -168,11 +240,11 @@ public class MarketFragment extends Fragment {
                         if(products.getEstado().equals("Activo")){
 
                             listaProductos.add(products);
+                            filter.add(products);
                         }
                     }
 
                 }
-
                 productAdapter = new ProductAdapter(getContext(), listaProductos);
                 recyclerView.setAdapter(productAdapter);
             }
@@ -196,4 +268,38 @@ public class MarketFragment extends Fragment {
         recyclerView.setAdapter(adapterProduct);
     }
 
+    private void addProduct(String type){
+
+
+        ArrayList<Product> filterProducts = new ArrayList<>();
+        for (Product obj: listaProductos){
+            if(obj.getTipo()!=null){
+
+                if (obj.getTipo().equals(type)){
+                    filter.add(obj);
+                }
+            }
+        }
+        ProductAdapter adapterProduct = new ProductAdapter(context, filter);
+        recyclerView.setAdapter(adapterProduct);
+
+    }
+
+
+    private void removeProduct(String type){
+
+
+        ArrayList<Product> filterProducts = new ArrayList<>();
+        for (Product obj: listaProductos){
+            if(obj.getTipo()!=null){
+
+                if (obj.getTipo().equals(type)){
+                    filter.remove(obj);
+                }
+            }
+        }
+        ProductAdapter adapterProduct = new ProductAdapter(context, filter);
+        recyclerView.setAdapter(adapterProduct);
+
+    }
 }

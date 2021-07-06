@@ -226,7 +226,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                         switch ((spinner.getSelectedItemPosition()-1)/7){
                             case 0: product.setTipo( getResources().getStringArray(R.array.productsType)[0]);
-                                        break;
+                                break;
                             case 1: product.setTipo( getResources().getStringArray(R.array.productsType)[1]);
                                 break;
                             case 2: product.setTipo( getResources().getStringArray(R.array.productsType)[2]);

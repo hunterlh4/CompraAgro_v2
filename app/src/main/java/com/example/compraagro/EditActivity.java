@@ -136,7 +136,7 @@ public class EditActivity extends AppCompatActivity {
                         tvNombre.setText(product.getNombre());
                         tvDescripcion.setText(product.getDescripcion());
                         tvCantidad.setText(product.getCantidad());
-                        tvPrecio.setText(product.getPrecio());
+                        tvPrecio.setText("S/ "+product.getPrecio());
                         Glide.with(getApplication()).load(product.getUrlImagen()).into(productImage);
 
                         idPublicador = product.getIdUsuario();

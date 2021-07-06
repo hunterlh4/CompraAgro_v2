@@ -100,6 +100,14 @@ public class Product {
         this.lng = lng;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Product(String urlImagen, String nombre, String descripcion, String precio, String cantidad, String idUsuario, String idProducto) {
         this.urlImagen = urlImagen;
         this.nombre = nombre;
@@ -124,4 +132,5 @@ public class Product {
     private String lat;
     private String lng;
 
+    private String tipo;
 }

@@ -113,34 +113,7 @@ public class HistoryFragment extends Fragment {
 
                             listTransactions.add(transactions);
 
-                            if(transactions.getState().equals("Vendido")){
 
-
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");
-
-                                reference.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        listTransactions.clear();
-                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                            Product products = snapshot.getValue(Product.class);
-
-                                            if(transactions.getIdProduct().equals(products.getIdProducto())){
-                                                products.setEstado("Inactivo");
-                                                reference.child(products.getIdProducto()).setValue(products);
-                                            }
-
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
-
-                            }
 
                         }
                     }

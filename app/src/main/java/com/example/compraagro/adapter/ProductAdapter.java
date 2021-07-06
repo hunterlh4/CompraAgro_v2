@@ -51,7 +51,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.producto.setText(product.getNombre());
         holder.descripcion.setText(product.getDescripcion());
         holder.cantidad.setText(product.getCantidad());
-        holder.precio.setText(product.getPrecio());
+        holder.precio.setText("S/ "+product.getPrecio());
         holder.fecha.setText(product.getFecha());
         Glide.with(mContext).load(product.getUrlImagen()).into(holder.imagen);
 

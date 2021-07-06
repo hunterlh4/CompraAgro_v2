@@ -25,22 +25,14 @@
             android:textStyle="bold"/>
 
 
-        <com.google.android.material.textfield.TextInputLayout
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:id="@+id/nameProduct"
-            android:hint="Nombre del producto"
-            app:startIconDrawable="@drawable/ic_form"
-            android:layout_marginTop="20dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:id="@+id/spinner"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -73,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:id="@+id/priceProduct"
-            android:hint="Precio del producto (S/. )"
+            android:hint="Precio del producto (S/.)"
             app:startIconDrawable="@drawable/ic_form"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -81,6 +73,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/recommendedPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recomendacion"
+            />
 
         <ImageButton
             android:id="@+id/ibAddProduct"

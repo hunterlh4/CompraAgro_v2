@@ -124,7 +124,7 @@ public class DetailActivity extends AppCompatActivity {
                         tvNombre.setText(product.getNombre());
                         tvDescripcion.setText(product.getDescripcion());
                         tvCantidad.setText(product.getCantidad());
-                        tvPrecio.setText(product.getPrecio());
+                        tvPrecio.setText("S/ "+product.getPrecio());
                         Glide.with(getApplication()).load(product.getUrlImagen()).into(productImage);
 
                         idPublicador = product.getIdUsuario();
@@ -204,10 +204,22 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
                 if(agregar){
-                    mDatabase.child("Transactions").child(transaction.getIdTransaction()).setValue(transaction);
-                    Toast.makeText(getApplication(),"Reservado",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DetailActivity.this, PaymentActivity.class);
+                    intent.putExtra("transaction0", transaction.getIdTransaction());
+                    intent.putExtra("transaction1", transaction.getIdProduct());
+                    intent.putExtra("transaction2", transaction.getIdBuyer());
+                    intent.putExtra("transaction3", transaction.getIdSeller());
+                    intent.putExtra("transaction4", transaction.getDate());
+                    intent.putExtra("transaction5", transaction.getPrice());
+                    intent.putExtra("transaction6", transaction.getWeight());
+                    intent.putExtra("transaction7", transaction.getState());
+                    intent.putExtra("transaction8", transaction.getNameProduct());
+                    intent.putExtra("monto", tvPrecio.getText().toString());
+                    startActivity(intent);
+
+
                 } else {
-                    Toast.makeText(getApplication(),"Ya lo reservó",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(),"Ya lo compró",Toast.LENGTH_SHORT).show();
 
                 }
             }

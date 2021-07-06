@@ -11,4 +11,7 @@
     <color name="colorPrimaryDark">#46E674</color>
     <color name="colorAccent">#FFDB00</color>
     <color name="color_launch">#62BA16</color>
+    <color name="colorReservado">#D1B406</color>
+    <color name="colorVendido">#3CED15</color>
+    <color name="colorFallido">#C3072D</color>
 </resources>

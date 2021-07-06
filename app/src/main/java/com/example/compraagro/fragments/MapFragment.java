@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
@@ -89,6 +90,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             HeatmapTileProvider mProvider;
             TileOverlay mOverlay;
+
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

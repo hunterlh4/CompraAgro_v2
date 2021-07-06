@@ -108,7 +108,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/round_edges"
-                android:text="Reservar" />
+                android:text="Comprar" />
 
         </LinearLayout>
 

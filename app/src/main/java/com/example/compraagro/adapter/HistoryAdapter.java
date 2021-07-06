@@ -53,23 +53,35 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
 
-
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Transaction transaction = mTransaction.get(position);
+
+
+        if(transaction.getIdBuyer().equals(firebaseUser.getUid())){
+            transaction.setState("Comprado");
+        }
+
+        if(transaction.getIdSeller().equals(firebaseUser.getUid())){
+            transaction.setState("Vendido");
+        }
+
         holder.producto.setText(transaction.getNameProduct());
         holder.descripcion.setText(transaction.getState()+" el "+transaction.getDate());
         holder.cantidad.setText(transaction.getWeight());
         holder.precio.setText(transaction.getPrice());
 
-        if(transaction.getState().equals("Reservado") ){
 
-            holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorReservado));
-        } else if(transaction.getState().equals("Vendido") ){
 
-            holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorVendido));
-        }else if(transaction.getState().equals("Rechazado") ){
-
-            holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorFallido));
-        }
+//        if(transaction.getState().equals("Reservado") ){
+//
+//            holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorReservado));
+//        } else if(transaction.getState().equals("Vendido") ){
+//
+//            holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorVendido));
+//        }else if(transaction.getState().equals("Rechazado") ){
+//
+//            holder.background.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorFallido));
+//        }
 
 //
 //        Glide.with(mContext).load(product.getUrlImagen()).into(holder.imagen);
@@ -162,6 +174,35 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                     if(transactions.getIdTransaction().equals(idTransaction)){
                         transactions.setState("Vendido");
                         reference.child(transactions.getIdTransaction()).setValue(transactions);
+
+                        if(transactions.getState().equals("Vendido")){
+
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Products");
+
+                            reference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        Product products = snapshot.getValue(Product.class);
+
+                                        if(transactions.getIdProduct().equals(products.getIdProducto())){
+                                            products.setEstado("Inactivo");
+                                            reference.child(products.getIdProducto()).setValue(products);
+                                        }
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+
                     }
 
                 }

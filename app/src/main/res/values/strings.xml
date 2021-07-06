@@ -14,4 +14,145 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_maps">Map</string>
+
+    <string-array name="departamentos">
+        <item>Amazonas</item>
+        <item>Ancash</item>
+        <item>Apurimac</item>
+        <item>Arequipa</item>
+        <item>Ayacucho</item>
+        <item>Cajamarca</item>
+        <item>Callao</item>
+        <item>Cusco</item>
+        <item>Huancavelica</item>
+        <item>Huanuco</item>
+        <item>Ica</item>
+        <item>Junin</item>
+        <item>La Libertad</item>
+        <item>Lambayeque</item>
+        <item>Lima</item>
+        <item>Loreto</item>
+        <item>Madre De Dios</item>
+        <item>Moquegua</item>
+        <item>Pasco</item>
+        <item>Piura</item>
+        <item>Puno</item>
+        <item>San Martin</item>
+        <item>Tacna</item>
+        <item>Tumbes</item>
+        <item>Ucayali</item>
+    </string-array>
+
+
+    <string-array name="lat">
+        <item>-5.115146</item>
+        <item>-9.08528</item>
+        <item>-13.63389</item>
+        <item>-16.39889</item>
+        <item>-13.15878</item>
+        <item>-7.16378</item>
+        <item>-12.05659</item>
+        <item>-13.52264</item>
+        <item>-12.78261</item>
+        <item>-9.93062</item>
+        <item>-14.06777</item>
+        <item>-12.06513</item>
+        <item>-8.11599</item>
+        <item>-6.77137</item>
+        <item>-12.04318</item>
+        <item>-3.74912</item>
+        <item>-12.59331</item>
+        <item>-17.19832</item>
+        <item>-10.66748</item>
+        <item>-5.19449</item>
+        <item>-15.8422</item>
+        <item>-6.03416</item>
+        <item>-18.01465</item>
+        <item>-3.56694</item>
+        <item>-8.37915</item>
+
+    </string-array>
+    A
+
+    <string-array name="lng">
+        <item>-78.110828</item>
+        <item>-78.57833</item>
+        <item>-72.88139</item>
+        <item>-71.535</item>
+        <item>-74.22321</item>
+        <item>-78.50027</item>
+        <item>-77.11814</item>
+        <item>-71.96734</item>
+        <item>-74.97266</item>
+        <item>-76.24223</item>
+        <item>-75.72861</item>
+        <item>-75.20486</item>
+        <item>-79.02998</item>
+        <item>-79.84088</item>
+        <item>-77.02824</item>
+        <item>-73.25383</item>
+        <item>-69.18913s</item>
+        <item>-70.93567</item>
+        <item>-76.25668</item>
+        <item>-80.63282</item>
+        <item>-70.0199</item>
+        <item>-76.97168</item>
+        <item>-70.25362</item>
+        <item>-80.45153</item>
+        <item>-74.55387</item>
+    </string-array>
+
+    <string-array name="historySpinner">
+        <item>Compras</item>
+        <item>Ventas</item>
+    </string-array>
+
+    <string-array name="historySpinner1">
+        <item>Compras por aceptar</item>
+        <item>Compras hechas</item>
+        <item>Ventas por aceptar</item>
+        <item>Ventas hechasr</item>
+    </string-array>
+
+
+    <string-array name="productsSpinner">
+        <item>Selecciona su producto</item>
+        <item>Manzana</item>
+        <item>Pera</item>
+        <item>Mango</item>
+        <item>Platano</item>
+        <item>Papaya</item>
+        <item>Sandia</item>
+        <item>Otras Frutas</item>
+        <item>Acelga</item>
+        <item>Ajo</item>
+        <item>Brócoli</item>
+        <item>Cebolla</item>
+        <item>Espinaca</item>
+        <item>Nabo</item>
+        <item>Otras Hortalizas</item>
+        <item>Lenteja</item>
+        <item>Frejol</item>
+        <item>Garbanzo</item>
+        <item>Soja</item>
+        <item>Guisante</item>
+        <item>Cereal</item>
+        <item>Otras Legumbres</item>
+        <item>Alcachofa</item>
+        <item>Calabaza</item>
+        <item>Col</item>
+        <item>Perejil</item>
+        <item>Lechuga</item>
+        <item>Cilantro</item>
+        <item>Otras Verduras</item>
+    </string-array>
+
+
+    <string-array name="productsType">
+        <item>Frutas</item>
+        <item>Hortalizas</item>
+        <item>Legumbres</item>
+        <item>Verduras</item>
+    </string-array>
+
 </resources>
